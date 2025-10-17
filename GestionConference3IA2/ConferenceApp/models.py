@@ -2,7 +2,9 @@ from django.db import models
 from django.core.validators import MaxLengthValidator
 from django.core.exceptions import ValidationError
 # Create your models here.
-
+import uuid
+def generate_submission_id():
+    return "SUB"+uuid.uuid4().hex[:8].upper()
 class Conference(models.Model):
     conference_id=models.AutoField(primary_key=True)
     name=models.CharField(max_length=255)
@@ -20,6 +22,8 @@ class Conference(models.Model):
     end_date=models.DateField()
     created_at=models.DateTimeField(auto_now_add=True)
     update_at=models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return f"la conférence a comme titre {self.name}"
     def clean(self):
         if self.start_date > self.end_date:
             raise ValidationError("la date de début de la conférence doit être antérieur à la date fin ")
@@ -47,3 +51,10 @@ class Submission(models.Model):
     conference=models.ForeignKey(Conference,on_delete=models.CASCADE,
                                  related_name="submissions")
 
+    def save(self,*args,**kwargs):
+        if not self.submission_id:
+            newid=generate_submission_id()
+            while Submission.objects.filter(submission_id=newid).exists():
+                newid=generate_submission_id()
+            self.submission_id=newid
+        super().save(*args,**kwargs)
