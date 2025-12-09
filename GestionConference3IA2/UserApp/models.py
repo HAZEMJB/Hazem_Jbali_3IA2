@@ -11,6 +11,7 @@ def verify_email(email):
     email_domaine=email.split("@")[1]
     if email_domaine not in domaines:
         raise ValidationError("l'email est invalide et doit appartenir à un domaine universitaire privé")
+
 name_validator = RegexValidator(
     regex=r'^[a-zA-Z\s-]+$',
     message="ce champs ne doit contenir que des lettres et des espaces "

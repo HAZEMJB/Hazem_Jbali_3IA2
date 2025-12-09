@@ -37,9 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'UserApp',
     'ConferenceApp',
     'SessionApp',
+    'rest_framework_simplejwt',
+    'SecurityConfigApp',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +128,26 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL="UserApp.User"
+
+LOGIN_REDIRECT_URL="liste_conferences"
+LOGOUT_REDIRECT_URL="login"
+LOGIN_URL="login"
+from datetime  import datetime
+REST_FRAMEWORK = {
+'DEFAULT_AUTHENTICATION_CLASSES': (
+'rest_framework_simplejwt.authentication.JWTAuthentication',
+),
+'DEFAULT_PERMISSION_CLASSES': (
+'rest_framework.permissions.IsAuthenticated',
+),
+}
+from datetime import timedelta
+SIMPLE_JWT = {
+'USER_ID_FIELD': 'user_id',
+'USER_ID_CLAIM': 'user_id',
+'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+'ALGORITHM': 'HS256',
+# clé secrète (utilise la même que Django SECRET_KEY ou une autre forte)
+'SIGNING_KEY': SECRET_KEY,
+'AUTH_HEADER_TYPES': ('Bearer',),
+'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',), }

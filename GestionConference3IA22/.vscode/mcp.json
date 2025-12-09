@@ -1,0 +1,13 @@
+{
+    "servers":
+    {
+        "sayHello":{
+            "type": "stdio",
+            "command": "uv",
+            "args": [
+                "run",
+                "mcpserver.py"
+                ]
+        }
+    }
+}

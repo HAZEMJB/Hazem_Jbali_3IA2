@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>My Submissions</h1>
+
+<table border="1">
+  <tr>
+    <th>Title</th>
+    <th>Status</th>
+    <th>Author</th>
+    <th>Conference</th>
+    <th>Date</th>
+    <th>Payment</th>
+    <th>Action</th>
+  </tr>
+
+  {% for s in submissions %}
+  <tr>
+    <td>{{ s.title }}</td>
+    <td>{{ s.status }}</td>
+    <td>{{ s.user.username }}</td>
+    <td>{{ s.conference.name }}</td>
+    <td>{{ s.submission_date|date:"Y-m-d" }}</td>
+    <td>
+      {% if s.payed %}  Paid {% else %}  Not Paid {% endif %}
+    </td>
+    <td>
+      <a href="{% url 'detail_submission' s.submission_id %}">Details</a>
+      <a href="{% url 'update_submission' s.submission_id %}"> Modifier</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+<a href="{% url 'add_submission'%}">ADD</a>
+{% endblock %}

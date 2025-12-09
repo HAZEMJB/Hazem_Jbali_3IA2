@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Détails de la conférence</h1>
+
+<p><strong>Nom :</strong> {{ conference.name }}</p>
+<p><strong>Thème :</strong> {{ conference.theme }}</p>
+<p><strong>Date de début :</strong> {{ conference.start_date }}</p>
+<p><strong>Date de fin :</strong> {{ conference.end_date }}</p>
+<p><strong>Description :</strong> {{ conference.description }}</p>
+<p><strong>Lieu :</strong> {{ conference.lieu }}</p>
+
+<a href="{% url 'liste_conferences' %}">← Retour à la liste</a>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ titre }}</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+
+  <button type="submit" class="btn btn-success">{{ btn }}</button>
+  <a href="{% url 'liste_conferences' %}" class="btn btn-secondary">Annuler</a>
+</form>
+{% endblock %}

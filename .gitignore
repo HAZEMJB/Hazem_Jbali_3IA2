@@ -1,4 +1,6 @@
 ./venv/
+./.venv/
+
 ./GestionConference3IA2/db.sqlite3
 ./GestionConference3IA2/papers/
 # Byte-compiled / optimized / DLL files

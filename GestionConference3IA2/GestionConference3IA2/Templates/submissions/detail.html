@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ submission.title }}</h1>
+
+<p><strong>Abstract:</strong> {{ submission.abstract }}</p>
+<p><strong>Keywords:</strong> {{ submission.keywords }}</p>
+<p><strong>Status:</strong> {{ submission.status }}</p>
+<p><strong>Conference:</strong> {{ submission.conference.name }}</p>
+<p><strong>Author:</strong> {{ submission.user.username }}</p>
+<p><strong>Date:</strong> {{ submission.submission_date }}</p>
+<p><strong>Payment:</strong> {% if submission.payed %}Paid{% else %}Not Paid{% endif %}</p>
+
+<p>
+  <strong>PDF:</strong>
+  <a href="{% url 'download_paper' submission.submission_id %}">Download PDF</a>
+
+</p>
+
+<a href="{% url 'list_submissions' %}">← Back to list</a>
+{% endblock %}
